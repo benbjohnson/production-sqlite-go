@@ -5,7 +5,8 @@ import (
 	"testing"
 	"time"
 
-	_ "github.com/mattn/go-sqlite3"
+	// _ "github.com/mattn/go-sqlite3"
+	_ "github.com/tailscale/sqlite"
 )
 
 func TestInMemoryDB(t *testing.T) {

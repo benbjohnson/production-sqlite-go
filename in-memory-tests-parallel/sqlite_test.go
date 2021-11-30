@@ -2,22 +2,25 @@ package sqlite_test
 
 import (
 	"database/sql"
+	"fmt"
 	"testing"
 	"time"
 
-	_ "github.com/mattn/go-sqlite3"
+	// _ "github.com/mattn/go-sqlite3"
+	_ "github.com/tailscale/sqlite"
 )
 
-func TestInMemoryDB0(t *testing.T) { t.Parallel(); testInMemoryDB(t) }
-func TestInMemoryDB1(t *testing.T) { t.Parallel(); testInMemoryDB(t) }
-func TestInMemoryDB2(t *testing.T) { t.Parallel(); testInMemoryDB(t) }
-func TestInMemoryDB3(t *testing.T) { t.Parallel(); testInMemoryDB(t) }
-func TestInMemoryDB4(t *testing.T) { t.Parallel(); testInMemoryDB(t) }
-func TestInMemoryDB5(t *testing.T) { t.Parallel(); testInMemoryDB(t) }
-func TestInMemoryDB6(t *testing.T) { t.Parallel(); testInMemoryDB(t) }
-func TestInMemoryDB7(t *testing.T) { t.Parallel(); testInMemoryDB(t) }
+func TestInMemoryDB0(t *testing.T) {
+	for i := 0; i < 1000; i++ {
+		t.Run(fmt.Sprint(i), func(t *testing.T) {
+			testInMemoryDB(t, i)
+		})
+	}
+}
 
-func testInMemoryDB(t *testing.T) {
+func testInMemoryDB(t *testing.T, i int) {
+	t.Parallel()
+
 	t0 := time.Now()
 	defer func() { t.Logf("elapsed=%s", time.Since(t0)) }()
 
